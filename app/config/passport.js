@@ -29,7 +29,6 @@ module.exports = function (passport) {
 					newUser.id = profile.id;
 					newUser.displayName = profile.displayName;
 					newUser.photo = profile.photos[0].value;
-					newUser.nbrClicks.clicks = 0;
 
 					newUser.save(function (err) {
 						if (err) {
