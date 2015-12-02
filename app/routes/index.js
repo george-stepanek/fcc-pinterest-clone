@@ -27,17 +27,16 @@ module.exports = function (app, passport) {
 			res.json(req.user);
 		});
 
-	app.route('/auth/facebook')
-		.get(passport.authenticate('facebook'));
+	app.route('/auth/twitter')
+		.get(passport.authenticate('twitter'));
 
-	app.route('/auth/facebook/callback')
-		.get(passport.authenticate('facebook', {
+	app.route('/auth/twitter/callback')
+		.get(passport.authenticate('twitter', {
 			successRedirect: '/',
 			failureRedirect: '/'
 		}));
 		
 	var handler = new Handler();
 	app.route('/api/bars/:city')
-		.get(handler.getBars)
 		.post(handler.addGoing);
 };

@@ -1,6 +1,6 @@
 'use strict';
 
-var FacebookStrategy = require('passport-facebook').Strategy;
+var TwitterStrategy = require('passport-twitter').Strategy;
 var User = require('../models/users');
 
 module.exports = function (passport) {
@@ -41,12 +41,11 @@ module.exports = function (passport) {
 			});
 		});
 	}
-
-	passport.use(new FacebookStrategy({
-		clientID: process.env.FACEBOOK_KEY,
-		clientSecret: process.env.FACEBOOK_SECRET,
-		callbackURL: process.env.APP_URL + 'auth/facebook/callback',
-		profileFields: ['id', 'displayName', 'photos']
+	
+	passport.use(new TwitterStrategy({
+		consumerKey: process.env.TWITTER_KEY,
+		consumerSecret: process.env.TWITTER_SECRET,
+		callbackURL: process.env.APP_URL + 'auth/twitter/callback'
 	},
-	authenticate));
+	authenticate ));
 };
