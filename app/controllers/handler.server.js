@@ -1,12 +1,14 @@
 'use strict';
 
-var Users = require('../models/users.js');
+var Photos = require('../models/photos.js');
 
 function Handler () {
 	
-	this.addGoing = function (req, res) {
-		Users.findOneAndUpdate({ 'id': req.user.id }, { 'goingTo': req.query.goingto })
-			.exec(function (err, result) { if (err) { throw err; } res.json(result); });
-	}
+	this.addPhoto = function (req, res) {
+		if(req.query.url != undefined) {
+			var newPhoto = { url: req.query.url, userid: req.user.id };
+			Photos.create([newPhoto], function (err, result) { if (err) { throw err; } res.json(result); });
+		}
+	};
 }
 module.exports = Handler;

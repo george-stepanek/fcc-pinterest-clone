@@ -37,6 +37,6 @@ module.exports = function (app, passport) {
 		}));
 		
 	var handler = new Handler();
-	app.route('/api/bars/:city')
-		.post(handler.addGoing);
+	app.route('/api/photo')
+		.post(isLoggedIn, handler.addPhoto);
 };

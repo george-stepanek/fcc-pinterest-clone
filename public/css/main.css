@@ -1,16 +1,26 @@
 @import url(//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css);
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
-@import url(//fonts.googleapis.com/css?family=Limelight);
+@import url(//fonts.googleapis.com/css?family=Sigmar+One);
 
-.navbar-text {
-    font-family: Limelight, sans-serif;
-    font-size: 200%;
-}
-
-img {
+.user-photo {
   height: 50px;
   width: 50px;
-  border-radius: 20%;
-  margin-right: 10px;
+  margin-right: 15px;
 }
+.navbar-brand {
+  font-family: Sigmar One;
+  font-size: 175%;
+}
+input {
+  width: 100%;
+  padding: 5px;
+  margin-top: 20px;
+}
+.modal-body {
+  text-align: center;
+}
+#photo-placeholder {
+  width: 100%;
+}
+
 
