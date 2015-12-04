@@ -13,18 +13,20 @@
         
         $('#all-photos').click();
     });
-    
+
     function initialiseMode (menu) {
         $("li").removeClass("active");
         $(menu).addClass("active");
     }
     
     function displayPhotos (photos) {
-        $('.grid').empty();
+    
+        $('.grid-holder').empty();
+        $('.grid-holder').append('<div class="grid"><div class="grid-sizer"></div>');
         for(var i = 0; i < photos.length; i++) {
             var gridItem = '<div class="grid-item"><a href="' + photos[i].url + 
                 '" target = "_blank"><img class="small-photo" src="' + photos[i].url + 
-                '"></img></a><br/>';
+                '"></img></a>';
             
             if( $('#my-photos').hasClass("active") ) {
                 gridItem += '<button class="btn remove-photo photo-caption" id="' + photos[i].id + '">Remove</button>';
@@ -34,6 +36,7 @@
             
             $('.grid').append(gridItem + '</div>');
         }
+        $('.grid-holder').append('</div>');
         
         $('.specific-user').click( function () {
             $("li").removeClass("active");
@@ -46,6 +49,16 @@
                 $('#my-photos').click();
             }});            
         });
+        
+        var $grid = $('.grid').masonry({
+            itemSelector: '.grid-item',
+            percentPosition: true,
+            columnWidth: '.grid-sizer',
+            gutter: 10
+        });
+        $grid.imagesLoaded().progress( function() {
+            $grid.masonry();
+        });         
     }
 
     $('#all-photos').click( function () {
