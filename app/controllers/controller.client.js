@@ -2,6 +2,11 @@
 
 (function () {
     
+    $('#photo-url').keypress(function(e){
+        if(e.keyCode == 13)
+            $('#save-photo').click();
+    });
+    
     $("document").ready(function () {
         $.get(window.location.origin + '/api/:id', function (user) {
             $('#login').hide();
