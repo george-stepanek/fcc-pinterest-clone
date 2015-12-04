@@ -19,8 +19,20 @@ input {
 .modal-body {
   text-align: center;
 }
-#photo-placeholder {
+.small-photo, #photo-placeholder {
   width: 100%;
 }
-
-
+.grid-item {
+  width: 20%;
+  float: left;
+  border: 2px solid;
+  border-color: darkgrey;
+  text-align: center;
+}
+.grid {
+	padding: 0px 30px; 
+}
+.photo-caption {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

@@ -37,6 +37,14 @@ module.exports = function (app, passport) {
 		}));
 		
 	var handler = new Handler();
-	app.route('/api/photo')
-		.post(isLoggedIn, handler.addPhoto);
+	app.route('/api/photo/all')
+		.get(handler.getAllPhotos);
+		
+	app.route('/api/photo/user/:id')
+		.get(handler.getUserPhotos);
+		
+	app.route('/api/photo/my')
+		.get(isLoggedIn, handler.getMyPhotos)
+		.post(isLoggedIn, handler.addPhoto)
+		.delete(isLoggedIn, handler.deletePhoto);
 };
