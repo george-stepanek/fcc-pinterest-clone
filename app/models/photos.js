@@ -7,6 +7,7 @@ var Photo = new Schema({
 	id: { type:Schema.ObjectId, default: mongoose.Types.ObjectId },
 	userid: String,
 	username: String,
+	userphoto: String,
 	url: String
 });
 

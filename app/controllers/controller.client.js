@@ -34,9 +34,10 @@
                 '"></img></a>';
             
             if( $('#my-photos').hasClass("active") ) {
-                gridItem += '<button class="btn remove-photo photo-caption" id="' + photos[i].id + '">Remove</button>';
-            } else {
-                gridItem += '<button class="btn specific-user photo-caption" id="' + photos[i].userid + '">' + photos[i].username + '</button>';
+                gridItem += '<button class="btn remove-photo" id="' + photos[i].id + '">Remove</button>';
+            } else { 
+                gridItem += '<a href="#"><img class="specific-user" id="' + photos[i].userid + '" title="' + photos[i].username +
+                    '" src="' + photos[i].userphoto + '"></img></a>';
             }
             
             $('.grid').append(gridItem + '</div>');

@@ -18,7 +18,7 @@ function Handler () {
 	
 	this.addPhoto = function (req, res) {
 		if(req.query.url != undefined) {
-			var newPhoto = { url: req.query.url, userid: req.user.id, username: req.user.displayName };
+			var newPhoto = { url: req.query.url, userid: req.user.id, username: req.user.displayName, userphoto: req.user.photo };
 			Photos.create([newPhoto], function (err, result) { if (err) { throw err; } res.json(result); });
 		}
 	};

@@ -19,9 +19,18 @@ input {
 .modal-body {
   text-align: center;
 }
-.photo-caption {
-  margin-top: 10px;
-  margin-bottom: 10px;
+.remove-photo {
+  margin-top: 13px;
+  margin-bottom: 14px;
+}
+.specific-user {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: 1px solid;
+  border-color: darkgrey;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 .grid {
   margin-left: 10px;
@@ -36,6 +45,6 @@ input {
   text-align: center;
   margin-bottom: 10px;
 }
-#photo-placeholder, .grid-item img {
+#photo-placeholder, .small-photo {
   width: 100%;
 }
