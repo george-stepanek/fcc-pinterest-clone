@@ -33,7 +33,7 @@
                 '" target = "_blank"><img class="small-photo" src="' + photos[i].url + '"></img></a>';
             
             if( $('#my-photos').hasClass("active") ) {
-                gridItem += '<button class="btn remove-photo" id="' + photos[i].id + '">Remove</button>';
+                gridItem += '<button class="btn remove-photo" id="' + photos[i].id + '"><i class="fa fa-times"></i> Remove</button>';
             } else { 
                 gridItem += '<a href="#"><img class="specific-user" id="' + photos[i].userid + '" title="' + 
                     photos[i].username + '" src="' + photos[i].userphoto + '"></img></a>';
