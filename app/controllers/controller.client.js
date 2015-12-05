@@ -90,7 +90,7 @@
     $('#photo-url').bind('paste', function() { setTimeout(function() { showPhoto(); }, 100); });
     
     $('#save-photo').click( function () {
-        var url = window.location.origin + '/api/photo/my?url=' + encodeURIComponent($('#photo-url').val());
+        var url = window.location.origin + '/api/photo/my?url=' + encodeURIComponent($('#photo-url').val().replace(/["'><]/g, ''));
         $.post(url, function (result) {
             $('#photo-modal').modal('toggle');
             $('.active').click();
