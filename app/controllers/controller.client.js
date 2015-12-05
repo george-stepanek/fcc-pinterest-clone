@@ -17,7 +17,7 @@
             $(".user-photo").attr("src", user.photo);
         });
         
-        $('#all-photos').click();
+        $('#recent-photos').click();
     });
 
     function initialiseMode (menu) {
@@ -27,8 +27,8 @@
     
     function displayPhotos (photos) {
         $('.grid-holder').empty();
-        $('.grid-holder').append('<div class="grid"><div class="grid-sizer"></div>');
-        for(var i = 0; i < photos.length; i++) {
+        $('.grid-holder').append('<div class="grid"><div class="grid-sizer"></div></div>');
+        for(var i = photos.length - 1; i >= 0; i--) {
             var gridItem = '<div class="grid-item"><a href="' + photos[i].url + 
                 '" target = "_blank"><img class="small-photo" src="' + photos[i].url + '"></img></a>';
             
@@ -38,11 +38,9 @@
                 gridItem += '<a href="#"><img class="specific-user" id="' + photos[i].userid + '" title="' + 
                     photos[i].username + '" src="' + photos[i].userphoto + '"></img></a>';
             }
-            
             $('.grid').append(gridItem + '</div>');
         }
-        $('.grid-holder').append('</div>');
-        
+
         $('.specific-user').click( function () {
             $("li").removeClass("active");
             $.get(window.location.origin + '/api/photo/user/' + this.id, function (results) { displayPhotos(results); });            
@@ -66,7 +64,7 @@
         });         
     }
 
-    $('#all-photos').click( function () {
+    $('#recent-photos').click( function () {
         initialiseMode(this);
         $.get(window.location.origin + '/api/photo/all', function (results) { displayPhotos(results); });
     });
