@@ -3,8 +3,9 @@
 (function () {
     
     $('#photo-url').keypress(function(e){
-        if(e.keyCode == 13)
-            $('#save-photo').click();
+        if(e.keyCode == 13) { 
+            $('#save-photo').click(); 
+        }
     });
     
     $("document").ready(function () {
@@ -25,19 +26,17 @@
     }
     
     function displayPhotos (photos) {
-    
         $('.grid-holder').empty();
         $('.grid-holder').append('<div class="grid"><div class="grid-sizer"></div>');
         for(var i = 0; i < photos.length; i++) {
             var gridItem = '<div class="grid-item"><a href="' + photos[i].url + 
-                '" target = "_blank"><img class="small-photo" src="' + photos[i].url + 
-                '"></img></a>';
+                '" target = "_blank"><img class="small-photo" src="' + photos[i].url + '"></img></a>';
             
             if( $('#my-photos').hasClass("active") ) {
                 gridItem += '<button class="btn remove-photo" id="' + photos[i].id + '">Remove</button>';
             } else { 
-                gridItem += '<a href="#"><img class="specific-user" id="' + photos[i].userid + '" title="' + photos[i].username +
-                    '" src="' + photos[i].userphoto + '"></img></a>';
+                gridItem += '<a href="#"><img class="specific-user" id="' + photos[i].userid + '" title="' + 
+                    photos[i].username + '" src="' + photos[i].userphoto + '"></img></a>';
             }
             
             $('.grid').append(gridItem + '</div>');
