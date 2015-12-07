@@ -29,7 +29,6 @@
         $('.grid-holder').empty();
         $('.grid-holder').append('<div class="grid"><div class="grid-sizer"></div></div>');
         for(var i = photos.length - 1; i >= 0; i--) {
-            //alert(photos[i].user);
             var gridItem = '<div class="grid-item"><a href="' + photos[i].url + 
                 '" target = "_blank"><img class="small-photo" src="' + photos[i].url + '"></img></a>';
             
