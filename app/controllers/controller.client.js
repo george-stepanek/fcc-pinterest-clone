@@ -29,14 +29,15 @@
         $('.grid-holder').empty();
         $('.grid-holder').append('<div class="grid"><div class="grid-sizer"></div></div>');
         for(var i = photos.length - 1; i >= 0; i--) {
+            //alert(photos[i].user);
             var gridItem = '<div class="grid-item"><a href="' + photos[i].url + 
                 '" target = "_blank"><img class="small-photo" src="' + photos[i].url + '"></img></a>';
             
             if( $('#my-photos').hasClass("active") ) {
-                gridItem += '<button class="btn remove-photo" id="' + photos[i].id + '"><i class="fa fa-times"></i> Remove</button>';
+                gridItem += '<button class="btn remove-photo" id="' + photos[i]._id + '"><i class="fa fa-times"></i> Remove</button>';
             } else { 
-                gridItem += '<a href="#"><img class="specific-user" id="' + photos[i].userid + '" title="' + 
-                    photos[i].username + '" src="' + photos[i].userphoto + '"></img></a>';
+                gridItem += '<a href="#"><img class="specific-user" id="' + photos[i].user.id + '" title="' + 
+                    photos[i].user.displayName + '" src="' + photos[i].user.photo + '"></img></a>';
             }
             $('.grid').append(gridItem + '</div>');
         }

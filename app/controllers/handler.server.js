@@ -1,31 +1,44 @@
 'use strict';
 
-var Photos = require('../models/photos.js');
+var User = require('../models/users');
+var Photo = require('../models/photos.js');
 
 function Handler () {
 
 	this.getAllPhotos = function (req, res) {
-		Photos.find({ }).exec(function (err, results) { if (err) { throw err; } res.json(results); });
+		Photo.find({ }).populate('user').exec(function (err, results) { if (err) { throw err; } res.json(results); });
 	};
 
 	this.getUserPhotos = function (req, res) {
-		Photos.find({ 'userid': req.params.id }).exec(function (err, results) { if (err) { throw err; } res.json(results); });
+		User.findOne({ 'id': req.params.id }, function (err, user) { if (err) { throw err; }
+			if (user) {
+				Photo.find({ 'user': user._id }).populate('user').exec(function (err, results) { if (err) { throw err; } res.json(results); });
+			}
+		});
 	};
 	
 	this.getMyPhotos = function (req, res) {
-		Photos.find({ 'userid': req.user.id }).exec(function (err, results) { if (err) { throw err; } res.json(results); });
+		User.findOne({ 'id': req.user.id }, function (err, user) { if (err) { throw err; }
+			if (user) {
+				Photo.find({ 'user': user._id }).populate('user').exec(function (err, results) { if (err) { throw err; } res.json(results); });
+			}
+		});
 	};
 	
 	this.addPhoto = function (req, res) {
-		if(req.query.url != undefined) {
-			var newPhoto = { url: req.query.url, userid: req.user.id, username: req.user.displayName, userphoto: req.user.photo };
-			Photos.create([newPhoto], function (err, result) { if (err) { throw err; } res.json(result); });
-		}
+		User.findOne({ 'id': req.user.id }, function (err, user) { if (err) { throw err; }
+			if (user) {
+				if(req.query.url != undefined) {
+					var photo = new Photo({ url: req.query.url, user: user });
+					Photo.create(photo, function (err, result) { if (err) { throw err; } res.json(result); });
+				}
+			}
+		});
 	};
 	
 	this.deletePhoto = function (req, res) {
 		if(req.query.photoid != undefined) {
-			Photos.findOneAndRemove({ 'id': req.query.photoid }, function (err, result) { if (err) { throw err; } res.json(result); });
+			Photo.findOneAndRemove({ '_id': req.query.photoid }, function (err, result) { if (err) { throw err; } res.json(result); });
 		}
 	};
 }
