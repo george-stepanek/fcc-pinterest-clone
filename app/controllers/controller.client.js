@@ -11,13 +11,23 @@
     $("document").ready(function () {
         $.get(window.location.origin + '/api/:id', function (user) {
             $('#login').hide();
+            $('#fb-login').hide();
             $('#logout').show();
             $('#my-photos').show();
             $('#add-photo').show();
             $(".user-photo").attr("src", user.photo);
         });
+
+        // recommended fix for facebook authentication bug
+        if (window.location.hash && window.location.hash === "#_=_") {
+            if (window.history && window.history.pushState) {
+                window.history.pushState("", document.title, window.location.pathname);
+            } else {
+                location.hash = "";
+            }
+        }        
         
-        $('#recent-photos').click();
+        setTimeout(function() { $('#recent-photos').click(); }, 200);
     });
 
     function initialiseMode (menu) {
@@ -97,3 +107,18 @@
         });
     });
 })();
+
+var CommentBox = React.createClass({
+  render: function() {
+    return (
+      <div className="commentList">
+        &nbsp;
+      </div>
+    );
+  }
+});
+
+ReactDOM.render(
+  <CommentBox />,
+  document.getElementById('content')
+);

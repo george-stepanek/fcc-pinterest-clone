@@ -1,5 +1,6 @@
 'use strict';
 
+var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 var User = require('../models/users');
 
@@ -48,4 +49,12 @@ module.exports = function (passport) {
 		callbackURL: process.env.APP_URL + 'auth/twitter/callback'
 	},
 	authenticate ));
+	
+		passport.use(new FacebookStrategy({
+		clientID: process.env.FACEBOOK_KEY,
+		clientSecret: process.env.FACEBOOK_SECRET,
+		callbackURL: process.env.APP_URL + 'auth/facebook/callback',
+		profileFields: ['id', 'displayName', 'photos']
+	},
+	authenticate));
 };

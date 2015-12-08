@@ -27,6 +27,15 @@ module.exports = function (app, passport) {
 			res.json(req.user);
 		});
 
+	app.route('/auth/facebook')
+		.get(passport.authenticate('facebook'));
+
+	app.route('/auth/facebook/callback')
+		.get(passport.authenticate('facebook', {
+			successRedirect: '/',
+			failureRedirect: '/'
+		}));
+
 	app.route('/auth/twitter')
 		.get(passport.authenticate('twitter'));
 
