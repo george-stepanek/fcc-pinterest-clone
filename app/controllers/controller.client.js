@@ -1,20 +1,64 @@
 'use strict';
 
+function displayPhotos (photos) {
+    $('.grid-holder').empty();
+    ReactDOM.render(
+        <PhotosGrid photos={photos} />,
+        document.getElementById('grid-holder')
+    );
+
+    var $grid = $('.grid').masonry({
+        itemSelector: '.grid-item',
+        percentPosition: true,
+        columnWidth: '.grid-sizer',
+        gutter: 10
+    });
+    $grid.imagesLoaded().progress( function() {
+        $grid.masonry();
+    });
+}
+
+var UserImg = React.createClass({
+    handleClick: function(event) {
+        $("li").removeClass("active");
+        $.get(window.location.origin + '/api/photo/user/' + this.props.photo.user.id, function (results) { displayPhotos(results); });  
+    },
+    render: function() {
+        return(
+            <a href="#">
+                <img className="specific-user" 
+                    title={this.props.photo.user.displayName} 
+                    src={this.props.photo.user.photo}
+                    onClick={this.handleClick}>
+                </img>
+            </a>
+        );        
+    }
+});
+
+var RemoveBtn = React.createClass({
+    handleClick: function(event) {
+        var url = window.location.origin + '/api/photo/my?photoid=' + this.props.photo._id
+        $.ajax({url: url, type: 'DELETE', success: function (results) { 
+            $('#my-photos').click();
+        }}); 
+    },
+    render: function() {
+        return(
+            <button className="btn remove-photo" onClick={this.handleClick}>
+                <i className="fa fa-times"></i> Remove
+            </button>            
+        );
+    }
+})
+
 var PhotosGrid = React.createClass({
   render: function() {
     var user_link = function(photo) {
         if( $('#my-photos').hasClass("active") ) {
-            return(
-                <button className="btn remove-photo" id={photo._id}>
-                    <i className="fa fa-times"></i> Remove
-                </button>
-            );
+            return( <RemoveBtn photo={photo} /> );
         } else { 
-            return(
-                <a href="#">
-                    <img className="specific-user" id={photo.user.id} title={photo.user.displayName} src={photo.user.photo}></img>
-                </a>
-            );
+            return( <UserImg photo={photo} /> );
         }
     }
     
@@ -72,36 +116,6 @@ var PhotosGrid = React.createClass({
         $(menu).addClass("active");
     }
     
-    function displayPhotos (photos) {
-        $('.grid-holder').empty();
-        ReactDOM.render(
-            <PhotosGrid photos={photos} />,
-            document.getElementById('grid-holder')
-        );
-
-        $('.specific-user').click( function () {
-            $("li").removeClass("active");
-            $.get(window.location.origin + '/api/photo/user/' + this.id, function (results) { displayPhotos(results); });            
-        });
-        
-        $('.remove-photo').click( function () {
-            var url = window.location.origin + '/api/photo/my?photoid=' + this.id;
-            $.ajax({url: url, type: 'DELETE', success: function (results) { 
-                $('#my-photos').click();
-            }});            
-        });
-        
-        var $grid = $('.grid').masonry({
-            itemSelector: '.grid-item',
-            percentPosition: true,
-            columnWidth: '.grid-sizer',
-            gutter: 10
-        });
-        $grid.imagesLoaded().progress( function() {
-            $grid.masonry();
-        });
-    }
-
     $('#recent-photos').click( function () {
         initialiseMode(this);
         $.get(window.location.origin + '/api/photo/all', function (results) { displayPhotos(results); });
