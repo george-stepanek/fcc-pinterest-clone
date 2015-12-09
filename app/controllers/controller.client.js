@@ -1,7 +1,44 @@
 'use strict';
 
-(function () {
+var PhotosGrid = React.createClass({
+  render: function() {
+    var user_link = function(photo) {
+        if( $('#my-photos').hasClass("active") ) {
+            return(
+                <button className="btn remove-photo" id={photo._id}>
+                    <i className="fa fa-times"></i> Remove
+                </button>
+            );
+        } else { 
+            return(
+                <a href="#">
+                    <img className="specific-user" id={photo.user.id} title={photo.user.displayName} src={photo.user.photo}></img>
+                </a>
+            );
+        }
+    }
     
+    var grid_items = this.props.photos.map(function(photo) {
+      return (
+        <div className="grid-item">
+            <a target = "_blank" href={photo.url}>
+                <img className="small-photo" src={photo.url}></img>
+            </a>
+            {user_link(photo)}
+        </div>
+      );
+    });
+    
+    return (
+      <div className="grid">
+        <div className="grid-sizer"></div>
+        {grid_items}
+      </div>
+    );
+  }
+});
+
+(function () {
     $('#photo-url').keypress(function(e){
         if(e.keyCode == 13) { 
             $('#save-photo').click(); 
@@ -37,19 +74,10 @@
     
     function displayPhotos (photos) {
         $('.grid-holder').empty();
-        $('.grid-holder').append('<div class="grid"><div class="grid-sizer"></div></div>');
-        for(var i = photos.length - 1; i >= 0; i--) {
-            var gridItem = '<div class="grid-item"><a href="' + photos[i].url + 
-                '" target = "_blank"><img class="small-photo" src="' + photos[i].url + '"></img></a>';
-            
-            if( $('#my-photos').hasClass("active") ) {
-                gridItem += '<button class="btn remove-photo" id="' + photos[i]._id + '"><i class="fa fa-times"></i> Remove</button>';
-            } else { 
-                gridItem += '<a href="#"><img class="specific-user" id="' + photos[i].user.id + '" title="' + 
-                    photos[i].user.displayName + '" src="' + photos[i].user.photo + '"></img></a>';
-            }
-            $('.grid').append(gridItem + '</div>');
-        }
+        ReactDOM.render(
+            <PhotosGrid photos={photos} />,
+            document.getElementById('grid-holder')
+        );
 
         $('.specific-user').click( function () {
             $("li").removeClass("active");
@@ -71,7 +99,7 @@
         });
         $grid.imagesLoaded().progress( function() {
             $grid.masonry();
-        });         
+        });
     }
 
     $('#recent-photos').click( function () {
@@ -107,18 +135,3 @@
         });
     });
 })();
-
-var CommentBox = React.createClass({
-  render: function() {
-    return (
-      <div className="commentList">
-        &nbsp;
-      </div>
-    );
-  }
-});
-
-ReactDOM.render(
-  <CommentBox />,
-  document.getElementById('content')
-);
