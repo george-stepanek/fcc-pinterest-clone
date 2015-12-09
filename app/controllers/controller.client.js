@@ -95,12 +95,8 @@
         }
     });
     
-    var showPhoto = function () {
-        $('#photo-placeholder').attr("src", $('#photo-url').val());
-    };
-    $('#photo-url').change(showPhoto);
-    $('#photo-url').keyup(showPhoto);
-    $('#photo-url').bind('paste', function() { setTimeout(function() { showPhoto(); }, 100); });
+    var showPhoto = function () { $('#photo-placeholder').attr("src", $('#photo-url').val()); };
+    $('#photo-url').change(showPhoto).keyup(showPhoto).bind('paste', function() { setTimeout(function() { showPhoto(); }, 100); });
     
     $('#photo-url').keypress(function(e){
         if(e.keyCode == 13 && !$('#save-photo').prop('disabled')) { 
