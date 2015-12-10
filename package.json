@@ -1,9 +1,9 @@
 {
-  "name": "fcc-nightlife",
+  "name": "fcc-pinterest",
   "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/george-stepanek/fcc-nightlife"
+    "url": "git+https://github.com/george-stepanek/fcc-pinterest-clone"
   },
   "scripts": {
     "start": "node server.js"
@@ -15,6 +15,6 @@
     "mongoose": "^4.1.0",
     "passport": "^0.3.0",
     "passport-twitter": "^1.0.3",
-      "passport-facebook": "^2.0.0"
+    "passport-facebook": "^2.0.0"
   }
 }
