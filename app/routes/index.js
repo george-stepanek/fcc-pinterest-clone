@@ -56,4 +56,7 @@ module.exports = function (app, passport) {
 		.get(isLoggedIn, handler.getMyPhotos)
 		.post(isLoggedIn, handler.addPhoto)
 		.delete(isLoggedIn, handler.deletePhoto);
+		
+	app.route('/api/photo/like/:id')
+		.post(isLoggedIn, handler.likePhoto);
 };

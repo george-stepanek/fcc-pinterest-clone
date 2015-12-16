@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 
 var Photo = new Schema({
 	url: String,
+	likes: Number,
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'

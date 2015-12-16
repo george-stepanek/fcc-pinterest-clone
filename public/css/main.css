@@ -45,3 +45,7 @@ input {
 #photo-placeholder, .small-photo {
   width: 100%;
 }
+.glyphicon {
+  margin: 10px;
+  font-size: 150%;
+}

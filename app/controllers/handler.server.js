@@ -41,5 +41,10 @@ function Handler () {
 			Photo.findOneAndRemove({ '_id': req.query.photoid }, function (err, result) { if (err) { throw err; } res.json(result); });
 		}
 	};
+	
+	this.likePhoto = function (req, res) {
+		Photo.findOneAndUpdate({ '_id': req.params.id }, { $inc: { 'likes': 1 } })
+			.exec(function(err, result) { if (err) { throw err; } res.json(result); });
+	};
 }
 module.exports = Handler;
