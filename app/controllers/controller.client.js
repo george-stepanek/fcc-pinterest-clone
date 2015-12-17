@@ -39,18 +39,19 @@
             if( $('#my-photos').hasClass("active") ) {
                 gridItem += '<button class="btn remove-photo" id="' + photos[i]._id + '"><i class="fa fa-times"></i> Remove</button>';
             } else {
+                gridItem += '<table><tr>';
+                
                 if($('#my-photos').is(":visible")) {
-                    gridItem += '<table><tr><td><a href="#"><span class="glyphicon glyphicon-repeat" id="' + photos[i].url + 
-                        '"></span></a></td><td width="100%">';
+                    gridItem += '<td><a href="#"><span class="glyphicon glyphicon-repeat" id="' + photos[i].url + '"></span></a></td>';
+                } else {
+                    gridItem += '<td width="25%">&nbsp;</td>';
                 }
                 
-                gridItem += '<a href="#"><img class="specific-user" id="' + photos[i].user.id + '" title="' + 
+                gridItem += '<td width="100%"><a href="#"><img class="specific-user" id="' + photos[i].user.id + '" title="' + 
                     photos[i].user.displayName + '" src="' + photos[i].user.photo + '"></img></a>';
                     
-                if($('#my-photos').is(":visible")) {
-                    gridItem += '</td><td><a href="#"><span class="glyphicon glyphicon-heart" id="' + photos[i]._id + 
-                        '">' + (photos[i].likes ? '<sub>' + photos[i].likes + '</sub>' : '') + '</span></a></td></tr></table>';
-                }
+                gridItem += '</td><td><a href="#"><span class="glyphicon glyphicon-heart" id="' + photos[i]._id + 
+                    '">' + (photos[i].likes ? '<sub>' + photos[i].likes + '</sub>' : '') + '</span></a></td></tr></table>';
             }
             $('.grid').append(gridItem + '</div>');
         }
@@ -74,14 +75,16 @@
             setTimeout(function() { $('#save-photo').focus(); }, 500);            
         });
         
-        $('.glyphicon-heart').click(function () {
-            var heart = $(this);
-            $.post(window.location.origin + '/api/photo/like/' + this.id, function (result) {
-                var likes = parseInt(heart.text(), 10);
-                likes = likes ? likes : 0;
-                heart.html('<sub>' + (likes + 1) + '</sub>');
+        if($('#my-photos').is(":visible")) {
+            $('.glyphicon-heart').click(function () {
+                var heart = $(this);
+                $.post(window.location.origin + '/api/photo/like/' + this.id, function (result) {
+                    var likes = parseInt(heart.text(), 10);
+                    likes = likes ? likes : 0;
+                    heart.html('<sub>' + (likes + 1) + '</sub>');
+                });
             });
-        });
+        }
         
         var $grid = $('.grid').masonry({
             itemSelector: '.grid-item',
